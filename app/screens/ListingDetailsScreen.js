@@ -1,7 +1,8 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { KeyboardAvoidingView, StyleSheet, View } from "react-native";
 import { Image } from "react-native-expo-image-cache";
 import AppText from "../components/AppText";
+import ContactSellerForm from "../components/ContactSellerForm";
 import ListItem from "../components/lists/ListItem";
 import colors from "../config/colors";
 
@@ -9,12 +10,12 @@ function ListingDetailsScreen({ route }) {
   const listing = route.params;
 
   return (
-    <View>
+    <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={100}>
       <Image
         style={styles.image}
-        uri={listing.images[0].url}
         preview={{ uri: listing.images[0].thumbnailUrl }}
         tint="light"
+        uri={listing.images[0].url}
       />
       <View style={styles.detailsContainer}>
         <AppText style={styles.title}>{listing.title}</AppText>
@@ -22,16 +23,20 @@ function ListingDetailsScreen({ route }) {
         <View style={styles.userContainer}>
           <ListItem
             image={require("../assets/apurva.jpg")}
-            title="Apurva Deshmukh"
+            title="Apurva"
             subTitle="5 Listings"
           />
         </View>
+        <ContactSellerForm style={styles.contact} listing={listing} />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  contact: {
+    marginVertical: 20,
+  },
   detailsContainer: {
     padding: 20,
   },
